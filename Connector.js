@@ -5,6 +5,7 @@ class Moralis {
         tmpPath = './',
         debugLevel = 0,
         API_KEY = false,
+        API_URL = false,
     }) {
         const s = this;
         s.tmpPath = tmpPath;
@@ -27,7 +28,8 @@ class Moralis {
         tokenId
     }) {
         const s = this;
-        let url = buildApiUrl(s.API_URL, address, contractAddress, tokenId);
+        let url = buildApiUrl(endpoint, s.API_URL, address, contractAddress, tokenId);
+
         headers['X-API-Key'] = s.API_KEY
         //Make Moralis API call
         var options = {

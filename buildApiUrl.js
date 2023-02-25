@@ -1,12 +1,12 @@
-module.exports = () => {
+module.exports = (endpoint, apiUrl, address, contractAddress, tokenId) => {
   switch (endpoint) {
     case 'address/nft':
-      return `${s.API_URL}/${address}/nft`
+      return `${apiUrl}/${address}/nft`
     case 'nft/contractAddress':
-      return `${s.API_URL}/nft/${contractAddress}`
+      return `${apiUrl}/nft/${contractAddress}`
     case 'getMultipleNFTs':
-      return `${s.API_URL}/getMultipleNFTs`
+      return `${apiUrl}/getMultipleNFTs`
     default:
-      return `${s.API_URL}`
+      return `${apiUrl}`
   }
 }
