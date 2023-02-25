@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    RED.nodes.registerType('moralis', {
+        category: "web3",
+        color: "#f3f3f3",
+        icon: "moralisLogo.png",
+        inputs: 1,
+        outputs: 1,
+        defaults: {
+            service: {
+                value: "",
+                required: true
+            },
+            name: {
+                value: "moralis"
+            },
+            config: {
+                value: "",
+                type: "moralis-config"
+            },
+            operation: {
+                value: ""
+            }
+        },
+        label: function () {
+            return (this.name || "moralis")
+        },
+        oneditprepare: function oneditprepare() {
+            var node = this;
+            var selectOperation = $('#node-input-operation');
+            $.getJSON("moralis/operations", function (data) {
+                selectOperation.children().last().after(data.map(function (d) {
+                    return $('<option></option>').attr('value', d).attr('selected', node.operation === d).text(d).wrap('<p/>').parent().html();
+                }).join(""));
+                if (data.indexOf(node.operation) < 0) {
+                    $('#node-input-dynamic-operation').attr('selected', true);
+                }
+                selectOperation.change();
+            });
+        }
+    });
+
+</script>
+
+<script type="text/x-red" data-template-name="moralis">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-config"><i class="icon-bookmark"></i> Config</label>
+        <input type="text" id="node-input-config">
+    </div>
+    <div class="form-row">
+        <label for="node-input-operation"><i class="fa fa-wrench"></i> Operation</label>
+        <select type="text" id="node-input-operation" style="display: inline-block; vertical-align: top;">
+          <option value="" id="node-input-dynamic-operation" style="font-style: italic;">Dynamic (msg.operation)</option>
+        </select>
+      </div>
+</script>
+
+<script type="text/x-red" data-help-name="moralis">
+
+</script>

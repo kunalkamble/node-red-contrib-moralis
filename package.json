@@ -1,0 +1,61 @@
+{
+  "_from": "node-red-contrib-moralis@1.0.0",
+  "_id": "node-red-contrib-moralis@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-dg5OBo4AzEDNxKTScvMdVPBUduHDRrkZVnfCLMnxFXgs6GG+LnpM6mpou3V5reQArD+4mGMi2iUGYsXF1fPrfA==",
+  "_location": "/node-red-contrib-moralis",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "node-red-contrib-moralis@1.0.0",
+    "name": "node-red-contrib-moralis",
+    "escapedName": "node-red-contrib-moralis",
+    "rawSpec": "1.0.0",
+    "saveSpec": null,
+    "fetchSpec": "1.0.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-red-contrib-moralis/-/node-red-contrib-moralis-1.0.0.tgz",
+  "_shasum": "940def95f68bcd5681d024de4b8fd2d31aec690b",
+  "_spec": "node-red-contrib-moralis@1.0.0",
+  "_where": "/Users/kunalkamble/.node-red",
+  "author": {
+    "name": "Kunal Kamble"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/kunalkamble/node-red-contrib-moralis/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "deprecated": false,
+  "description": "Provide zoomus block",
+  "homepage": "https://gitlab.com/kunalkamble/node-red-contrib-moralis#readme",
+  "keywords": [
+    "node-red"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "node-red-contrib-moralis",
+  "node-red": {
+    "nodes": {
+      "zoomus": "node.js",
+      "zoomus-config": "config.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/kunalkamble/node-red-contrib-moralis.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.4"
+}
