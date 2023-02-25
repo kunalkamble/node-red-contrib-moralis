@@ -42,12 +42,15 @@ class Moralis {
             case 'address/nft':
                 url = `${s.API_URL}${address}/nft`
                 break;
-
+            case 'nft/contractAddress':
+                url = `${s.API_URL}nft/${contractAddress}`
+                break;
+            case 'getMultipleNFTs':
+                url = `getMultipleNFTs`
+                break;
             default:
                 break;
         }
-        console.log("🚀 ~ file: Connector.js:40 ~ Moralis ~ endpoint:", endpoint, url)
-        s.log(`+ call: ${url}`)
         headers['X-API-Key'] = s.API_KEY
         //Make Moralis API call
         var options = {
@@ -56,7 +59,9 @@ class Moralis {
             headers: headers
         };
 
-
+        if (method === 'POST' && !body) {
+            throw new Error('Invalid msg.body');
+        }
         if (body) {
             options.body = body;
             if (!method) {
