@@ -3,7 +3,11 @@
         category: 'config',
         defaults: {
             name: {
-                value: "",
+                value: "Moralis Config",
+                required: true
+            },
+            apiUrl: {
+                value: "https://deep-index.moralis.io/api/v2",
                 required: true
             },
             apiKey: {
@@ -21,6 +25,10 @@
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-user"></i> Name</label>
         <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-apiUrl"><i class="fa fa-globe"></i> API RUL</label>
+        <input type="text" id="node-config-input-apiUrl">
     </div>
     <div class="form-row">
         <label for="node-config-input-apiKey"><i class="fa fa-globe"></i> API Key</label>

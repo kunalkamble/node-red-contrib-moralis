@@ -30,7 +30,8 @@ module.exports = function (RED) {
         this.chain = config.chain;
         const configService = appEnv.getService(config.service);
         node.moralis = new Connector({
-            API_KEY: node.host.apiKey
+            API_KEY: node.host.apiKey,
+            API_URL: node.host.apiUrl
         });
 
         //
@@ -42,7 +43,6 @@ module.exports = function (RED) {
         if (node.chain) {
             nodeChain = chains[node.chain];
         }
-        console.log("🚀 ~ file: node.js:89 ~ MoralisNode ~ nodeChain:", nodeChain, nodeOperation)
 
         node.on('input', function (msg) {
             node.status({

@@ -4,6 +4,7 @@ module.exports = function (RED) {
 
         //config
         this.name = n.name;
+        this.apiUrl = n.apiUrl;
         this.apiKey = n.apiKey;
     }
     RED.nodes.registerType("moralis-config", MoralisConfigNode);

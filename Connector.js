@@ -1,4 +1,5 @@
 const rp = require('request-promise');
+const buildApiUrl = require('node-red-contrib-moralis/buildApiUrl')
 class Moralis {
     constructor({
         tmpPath = './',
@@ -9,19 +10,7 @@ class Moralis {
         s.tmpPath = tmpPath;
         s.debugLevel = debugLevel;
         s.API_KEY = API_KEY;
-        s.API_URL = `https://deep-index.moralis.io/api/v2/`;
-    }
-
-    log(msg, level = 4) {
-        const s = this;
-        if (s.debugLevel) {
-            if (level <= s.debugLevel) {
-                console.log(msg);
-            }
-        }
-    }
-    async sleep(timer) {
-        return new Promise(res => setTimeout(res, timer))
+        s.API_URL = API_URL;
     }
 
     async call({
@@ -34,23 +23,11 @@ class Moralis {
             'accept': 'application/json',
         },
         address,
-        contractAddress
+        contractAddress,
+        tokenId
     }) {
         const s = this;
-        let url = `${s.API_URL}`;
-        switch (endpoint) {
-            case 'address/nft':
-                url = `${s.API_URL}${address}/nft`
-                break;
-            case 'nft/contractAddress':
-                url = `${s.API_URL}nft/${contractAddress}`
-                break;
-            case 'getMultipleNFTs':
-                url = `getMultipleNFTs`
-                break;
-            default:
-                break;
-        }
+        let url = buildApiUrl(s.API_URL, address, contractAddress, tokenId);
         headers['X-API-Key'] = s.API_KEY
         //Make Moralis API call
         var options = {
