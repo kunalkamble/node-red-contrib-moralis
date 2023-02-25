@@ -1,5 +1,5 @@
 module.exports = {
-    'GET wallet': ['wallet', false],
-    'GET wallet/address': ['wallet/address', true],
-    'POST wallet/lock': ['wallet/lock', false, false, true]
+    'Get MultipleNFTs': ['getMultipleNFTs', 'POST'],
+    'Get NFTs by wallet': ['address/nft', 'GET',],
+    'Get NFTs by contract': ['nft/contractAddress', 'GET',],
 }

@@ -1,5 +1,8 @@
 module.exports = function (RED) {
-    const operations = require('./operations')
+    "use strict";
+    const operations = require('./operations');
+    const chains = require('./chains');
+    const appEnv = require('cfenv').getAppEnv();
     var handle_error = function (err, node) {
         node.log(err.body);
         node.status({
@@ -13,13 +16,20 @@ module.exports = function (RED) {
     RED.httpAdmin.get('/moralis/operations', function (req, res) {
         res.json(Object.keys(operations).sort());
     });
+    RED.httpAdmin.get('/moralis/chains', function (req, res) {
+        res.json(Object.keys(chains).sort());
+    });
 
     function MoralisNode(config) {
+        const Connector = require('./Connector.js');
         const node = this;
         RED.nodes.createNode(node, config);
         node.host = RED.nodes.getNode(config.config);
-        const Connector = require('./Connector.js');
-        node.zoom = new Connector({
+        this.configNode = config.config;
+        this.operation = config.operation;
+        this.chain = config.chain;
+        const configService = appEnv.getService(config.service);
+        node.moralis = new Connector({
             API_KEY: node.host.apiKey
         });
 
@@ -28,6 +38,11 @@ module.exports = function (RED) {
         if (node.operation) {
             nodeOperation = operations[node.operation];
         }
+        let nodeChain;
+        if (node.chain) {
+            nodeChain = chains[node.chain];
+        }
+        console.log("🚀 ~ file: node.js:89 ~ MoralisNode ~ nodeChain:", nodeChain, nodeOperation)
 
         node.on('input', function (msg) {
             node.status({
@@ -38,13 +53,14 @@ module.exports = function (RED) {
 
             msg['_original'] = msg.payload;
             msg.payload = {
-                endpoint: msg.req.originalUrl,
-                queryString: msg.req.query,
-                body: msg.req.body,
-                method: msg.req.method,
-                token: msg.req.headers.token,
+                endpoint: nodeOperation[0],
+                queryString: `?chain=${nodeChain}&format=decimal&cursor=${msg.cursor || ''}`,
+                body: msg?.req?.body,
+                method: nodeOperation[1],
+                address: msg.address,
+                contractAddress: msg.contractAddress
             }
-            node.zoom.
+            node.moralis.
                 call(msg.payload)
                 .then(data => {
                     node.status({
@@ -64,6 +80,7 @@ module.exports = function (RED) {
                 });
         });
     }
+
 
     RED.nodes.registerType("moralis", MoralisNode);
 };

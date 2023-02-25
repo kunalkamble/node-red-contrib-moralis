@@ -36,7 +36,7 @@
     "request-promise": "^4.2.4"
   },
   "deprecated": false,
-  "description": "Provide zoomus block",
+  "description": "Provide moralis block",
   "homepage": "https://gitlab.com/kunalkamble/node-red-contrib-moralis#readme",
   "keywords": [
     "node-red"
@@ -46,8 +46,8 @@
   "name": "node-red-contrib-moralis",
   "node-red": {
     "nodes": {
-      "zoomus": "node.js",
-      "zoomus-config": "config.js"
+      "moralis": "node.js",
+      "moralis-config": "config.js"
     }
   },
   "repository": {

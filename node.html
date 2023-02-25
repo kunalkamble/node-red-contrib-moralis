@@ -19,6 +19,9 @@
             },
             operation: {
                 value: ""
+            },
+            chain: {
+                value: ""
             }
         },
         label: function () {
@@ -36,6 +39,17 @@
                 }
                 selectOperation.change();
             });
+            var selectChain = $('#node-input-chain');
+            $.getJSON("moralis/chains", function (data) {
+                selectChain.children().last().after(data.map(function (d) {
+                    console.log("🚀 ~ file: node.html:47 ~ d:", d)
+                    return $('<option></option>').attr('value', d).attr('selected', node.chain === d).text(d).wrap('<p/>').parent().html();
+                }).join(""));
+                if (data.indexOf(node.chain) < 0) {
+                    $('#node-input-dynamic-chain').attr('selected', true);
+                }
+                selectChain.change();
+            });
         }
     });
 
@@ -51,11 +65,17 @@
         <input type="text" id="node-input-config">
     </div>
     <div class="form-row">
-        <label for="node-input-operation"><i class="fa fa-wrench"></i> Operation</label>
+        <label for="node-input-operation"></i> Operation</label>
         <select type="text" id="node-input-operation" style="display: inline-block; vertical-align: top;">
           <option value="" id="node-input-dynamic-operation" style="font-style: italic;">Dynamic (msg.operation)</option>
         </select>
-      </div>
+    </div>
+    <div class="form-row">
+        <label for="node-input-chain"></i> Chain</label>
+        <select type="text" id="node-input-chain" style="display: inline-block; vertical-align: top;">
+          <option value="" id="node-input-dynamic-chain" style="font-style: italic;">Dynamic (msg.chain)</option>
+        </select>
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="moralis">
